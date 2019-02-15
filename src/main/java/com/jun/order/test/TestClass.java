@@ -30,13 +30,13 @@ public class TestClass {
 	
 	@Before
 	public void setUp() {
-		product = Arrays.asList(new ProductDTO(1,"아이스 아메리카노",3000,null,null),new ProductDTO(1,"카페라떼",4000,null,null),
-				new ProductDTO(1,"녹차라떼",4000,null,null),new ProductDTO(1,"에스프레소",2500,null,null));
+		product = Arrays.asList(new ProductDTO(1,"아이스 아메리카노",3000,null,null,"ice_americano.png",3),new ProductDTO(1,"카페라떼",4000,null,null,"cafe_latte.jpg",2),
+				new ProductDTO(1,"녹차라떼",4000,null,null,"green_tea_latte.jpg",2),new ProductDTO(1,"에스프레소",2500,null,null,"espresso.jpg",2));
 	}
 	
 	@Test
 	public void crudTest() {
-		productService.deleteProduct(new ProductDTO());
+		//productService.deleteProduct(new ProductDTO());
 		for(ProductDTO dto : product) {
 			productService.insertProduct(dto);
 		}
@@ -44,11 +44,7 @@ public class TestClass {
 		productDTO.setProduct_nm("아이스 아메리카노");
 		List<ProductDTO> list = productService.selectListProduct(productDTO);
 		for(ProductDTO dto : list) {
-			System.out.println(dto.getProduct_nm());
+			System.out.println(dto.getProduct_image());
 		}
-	}
-	@Test
-	public void injectMapTest() {
-		System.out.println(junUtil);
 	}
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jun.order.dao.CategoryDAO">
+	<sql id="whereCategory">
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="cate_no != null and cate_no != '' ">
+				AND CATE_NO = #{cate_no}		
+			</if>
+			<if test="cate_nm != null and cate_nm != '' ">
+				AND CATE_NM = #{cate_nm}		
+			</if>
+			<if test="cate_no != null and cate_no != '' ">
+				AND REG_DATE = #{reg_date}		
+			</if>
+			<if test="use_yn != null and use_yn != '' ">
+				AND USE_YN = #{use_yn}		
+			</if>
+		</trim>
+	</sql>
+
+	<insert id="insertCategory" parameterType="CategoryDTO">
+		INSERT INTO
+		    OD_CATEGORY_TB 
+		    (
+		        CATE_NO,
+		        CATE_NM,
+		        REG_DATE,
+		        USE_YN
+		    )
+		VALUES
+		    (
+		    	OD_CATEGORY_SEQ.NEXTVAL,
+		    	#{cate_nm},
+		    	DEFAULT,
+		    	#{use_yn}
+		    )
+	</insert>
+	<select id="selectListCategory" parameterType="CategoryDTO" resultType="CategoryDTO">
+		SELECT
+		    CATE_NO,
+		    CATE_NM,
+		    TO_CHAR(TO_DATE(REG_DATE,'YYYYMMDDHH24MI'),'YYYY-MM-DD HH24:MI'),
+		    USE_YN
+		FROM
+		    OD_CATEGORY_TB
+		<include refid="whereCategory" />
+	</select>
+</mapper>

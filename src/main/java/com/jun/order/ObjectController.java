@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 
+import com.jun.order.service.CategoryService;
 import com.jun.order.service.ProductService;
 import com.jun.order.util.JunUtilImpl;
 
@@ -18,6 +19,7 @@ public class ObjectController {
 	protected Map<String,Object> map;
 	@Inject
 	protected ProductService productService;
-	     
+	@Inject
+	protected CategoryService categoryService;
 }
   

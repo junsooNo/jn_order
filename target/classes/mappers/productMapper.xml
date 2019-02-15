@@ -18,6 +18,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="reg_date != null and reg_date != '' ">
 				AND REG_DATE = #{reg_date}
 			</if>
+			<if test="cate_no != null and cate_no != '' ">
+				AND CATE_NO = #{cate_no}
+			</if>
 		</trim>
 	</sql>
 
@@ -28,14 +31,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		        PRODUCT_NO,
 		        PRODUCT_NM,
 		        PRODUCT_PRICE,
-		        REG_DATE
+		        REG_DATE,
+		        PRODUCT_IMAGE,
+		        CATE_NO
 		    )
 		VALUES
 		    (
 		    	OD_PRODUCT_SEQ.NEXTVAL,
 		    	#{product_nm},
 		    	#{product_price},
-		    	DEFAULT
+		    	DEFAULT,
+		    	#{product_image},
+		    	#{cate_no}
 		    )
 		
 	</insert>
@@ -44,7 +51,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    PRODUCT_NO,
 		    PRODUCT_NM,
 		    TRIM(TO_CHAR(PRODUCT_PRICE, '999,999,999,999')) AS PRODUCT_PRICE_STR,
-		    TO_CHAR(TO_DATE(REG_DATE,'YYYYMMDDHH24MI'),'YYYY-MM-DD HH24:MI') AS REG_DATE
+		    TO_CHAR(TO_DATE(REG_DATE,'YYYYMMDDHH24MI'),'YYYY-MM-DD HH24:MI') AS REG_DATE,
+		    PRODUCT_IMAGE
+		FROM
+		    OD_PRODUCT_TB
+		<include refid="productWhere" />
+	</select>
+	<select id="selectOneProduct" parameterType="ProductDTO" resultType="ProductDTO">
+		SELECT
+		    PRODUCT_NO,
+		    PRODUCT_NM,
+		    TRIM(TO_CHAR(PRODUCT_PRICE, '999,999,999,999')) AS PRODUCT_PRICE_STR,
+		    TO_CHAR(TO_DATE(REG_DATE,'YYYYMMDDHH24MI'),'YYYY-MM-DD HH24:MI') AS REG_DATE,
+		    PRODUCT_IMAGE
 		FROM
 		    OD_PRODUCT_TB
 		<include refid="productWhere" />

@@ -22,4 +22,13 @@ public class ProductController extends ObjectController {
 		return junUtil.getJson(map);
 	}
 	
+	@RequestMapping(value="selectOneProduct",produces="application/text; charset=utf-8")
+	@ResponseBody
+	public String selectOneProduct(ProductDTO productDTO) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		ProductDTO productInfo = productService.selectOneProduct(productDTO);
+		map.put("productInfo",productInfo);
+		return junUtil.getJson(map);
+	}
+	
 }

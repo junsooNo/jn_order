@@ -5,7 +5,7 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JunUtilImpl extends JunUtil {
+public class JunUtilImpl implements JunUtil {
 	public String getJson(Map<String,Object> map) {
 		try {
 			String json = new ObjectMapper().writeValueAsString(map);
